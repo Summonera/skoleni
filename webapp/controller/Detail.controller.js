@@ -16,9 +16,10 @@ sap.ui.define([
 
 		patternMatched: function(oEvent){
 			var sPath = "/" + oEvent.getParameters().arguments.index;
+			this.sPath = sPath;
+
 			var oParams = {
-				path: sPath,
-				model: "mainModel"
+				path: sPath
 			}
 			this.getView().getModel("detailModel").setProperty("/path", sPath);
 			this.getView().bindElement(oParams);
@@ -36,8 +37,46 @@ sap.ui.define([
 		handleChangeState: function(){
 			var oModel = this.getView().getModel("detailModel");
 			var bEdit = oModel.getProperty("/edit");
-			oModel.setProperty("/edit", !bEdit);
+
+			if(bEdit){
+				this.handleUpdateEntry(oModel);
+			}else{
+				oModel.setProperty("/edit", !bEdit);
+			}
+			
+			/*this.sHeadId = this.getView().getModel().getProperty(this.sPath + "/HeadId");
+			this.sState = this.getView().getModel().getProperty(this.sPath + "/State");
+			var sPath = "/SetState"
+			this.getView().getModel().callFunction(sPath, {
+				method:"POST",
+				urlParameters: {
+					HeadKey: this.sHeadId,
+					State: this.sState
+				}
+			})*/
 		},
+
+		handleUpdateEntry: function(oModel){
+			var oData = this.getView().getElementBinding().getBoundContext().getObject();
+			this.getView().getModel().update(this.sPath,oData, {
+				success: function(){
+					oModel.setProperty("/edit", false);
+				}.bind(this),
+			});
+		},
+
+		handleUpdateEntry2: function(oModel){
+			var bChanged = this.getView().getModel().hasPendingChanges();
+			if(bChanged){
+				this.getView().getModel().submitChanges({
+					success: function(){
+						oModel.setProperty("/edit", false);
+					}
+				});
+			}
+		},
+
+
 
 		handleNavButtonPress: function(){
 			this.getOwnerComponent().getRouter().navTo("RouteMain");

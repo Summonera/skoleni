@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns:form="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
-    <Dialog contentWidth="750px" stretch="{device>/system/phone}">
+    <Dialog id="idDialog" beforeOpen="handleBeforeOpenDialog" busyIndicatorDelay="0" contentWidth="750px" stretch="{device>/system/phone}">
         <customHeader>
             <Toolbar>
                 <Title text="Nový záznam"/>
@@ -8,7 +8,7 @@
             </Toolbar>
         </customHeader>
         <buttons>
-            <Button type="Emphasized" text="Vytvořit nový záznam" press="handleCreateNewEntry"></Button>
+            <Button type="Emphasized" text="Vytvořit nový záznam" press="handleCreateNewEntryBE"></Button>
         </buttons>
         <content>
             <form:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="4" emptySpanM="3" >
@@ -20,8 +20,7 @@
                     <Label text="Model" required="true"/>
                     <Input value="{createModel>/model}"/>
                     <Label text="Barva" required="true"/>
-                    <!--TODO: výběr vlastních barev -->
-                    <ColorPalette colorSelect="handleColorSelect"/>
+                    <ColorPalette id="idColorPalette" colorSelect="handleColorSelect"/>
                     <Label text="Hodnocení"/>
                     <RatingIndicator value="{createModel>/hodnoceni}"/>
                     <Label text="Nové auto"/>

@@ -6,32 +6,32 @@
         <content>
             <form:SimpleForm labelSpanM="5" emptySpanL="5" layout="ResponsiveGridLayout" editable="false" visible="{= !${detailModel>/edit}}">
                 <Label text="Jméno"/>
-                <Text text="{mainModel>jmeno}"/>
+                <Text text="{Name}"/>
                 <Label text="Auto"/>
-                <Text text="{mainModel>auto}"/>
+                <Text text="{Mark}"/>
                 <Label text="Model"/>
-                <Text text="{mainModel>model}"/>
+                <Text text="{Model}"/>
                 <Label text="Barva"/>
-                <core:Icon src="sap-icon://color-fill" color="{mainModel>barva}" width="1px"/>
+                <core:Icon src="sap-icon://color-fill" color="{Color}" width="1px"/>
                 <Label text="Hodnocení"/>
-                <RatingIndicator value="{mainModel>hodnoceni}" displayOnly="true"/>
+                <RatingIndicator value="{Rating}" displayOnly="true"/>
                 <Label text="Nové auto"/>
-                <CheckBox displayOnly="true" selected="{mainModel>nove}"/>
+                <CheckBox displayOnly="true" selected="{IsNew}"/>
             </form:SimpleForm>
 
             <form:SimpleForm labelSpanM="5" emptySpanL="5" layout="ResponsiveGridLayout" editable="true" visible="{detailModel>/edit}">
                 <Label text="Jméno" required="true"/>
-                <Input value="{mainModel>jmeno}"/>
+                <Input value="{Name}"/>
                 <Label text="Auto" required="true"/>
-                <Input value="{mainModel>auto}"/>
+                <Input value="{Mark}"/>
                 <Label text="Model" required="true"/>
-                <Input value="{mainModel>model}"/>
+                <Input value="{Model}"/>
                 <Label text="Barva" required="true"/>
-                <ColorPalette colorSelect="handleColorSelect"/>
+                <ColorPalette colorSelect="handleColorSelect" id="idColorPalette"/>
                 <Label text="Hodnocení"/>
-                <RatingIndicator value="{mainModel>hodnoceni}"/>
+                <RatingIndicator value="{Rating}"/>
                 <Label text="Nové auto"/>
-                <CheckBox selected="{mainModel>nove}"/>
+                <CheckBox selected="{IsNew}"/>
             </form:SimpleForm>
         </content>
         <footer>
@@ -39,7 +39,6 @@
                 <ToolbarSpacer/>
                 <Button visible="{detailModel>/edit}" text="Uložit" icon="sap-icon://save" type="Emphasized" press="handleChangeState"/>
                 <Button visible="{= !${detailModel>/edit}}" text="Editovat" icon="sap-icon://edit" type="Emphasized" press="handleChangeState"/>
-
             </Toolbar>
         </footer>
     </Page>

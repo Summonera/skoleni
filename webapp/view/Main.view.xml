@@ -3,18 +3,18 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
-            <Table id="idTable" items="{mainModel>/}" mode="MultiSelect">
+            <Table updateFinished="handleTableUpdateFinished" id="idTable" items="{/EntCarSet}" mode="MultiSelect" >
                 <headerToolbar>
                     <Toolbar>
-                        <Title text="Záznamy ({ path: 'mainModel>/', formatter: '.formatter.showItemsCount' })" />
+                        <Title id="idTitle" text="Záznamy ({tableModel>/pocet})" />
                         <ToolbarSpacer />
-                        <Button visible="{device>/system/desktop}" text="Smazat vybrané záznamy" type="Emphasized" icon="sap-icon://delete" press="handleDeleteSelectedEntries" />
+                        <Button visible="{device>/system/desktop}" text="Smazat vybrané záznamy" type="Emphasized" icon="sap-icon://delete" press="handleDeleteSelectedEntriesBE" />
                         <Button visible="{device>/system/desktop}" text="Přidat záznam" type="Emphasized" icon="sap-icon://add" press="handleAddNewEntry" />
                         <MenuButton type="Emphasized" text="Akce" visible="{device>/system/phone}">
                             <menu>
                                 <Menu>
                                     <items>
-                                        <MenuItem text="Smazat vybrané záznamy" icon="sap-icon://delete" press="handleDeleteSelectedEntries"/>
+                                        <MenuItem text="Smazat vybrané záznamy" icon="sap-icon://delete" press="handleDeleteSelectedEntriesBE"/>
                                         <MenuItem text="Přidat záznam" icon="sap-icon://add" press="handleAddNewEntry"/>
                                     </items>
                                 </Menu>
