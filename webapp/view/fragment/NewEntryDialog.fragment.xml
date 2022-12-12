@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog contentWidth="750px" stretch="{device>/system/phone}">
+        <customHeader>
+            <Toolbar>
+                <Title text="Nový záznam"/>
+                <ToolbarSpacer/>
+                <Button type="Transparent" icon="sap-icon://decline" press="handleCloseDialog"/>
+            </Toolbar>
+        </customHeader>
+        <buttons>
+            <Button type="Emphasized" text="Vytvořit nový záznam" press="handleCreateNewEntry"></Button>
+        </buttons>
+        <content>
+            <form:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanM="4" emptySpanM="3" >
+                <form:content>
+                    <Label text="Jméno" required="true"/>
+                    <Input value="{createModel>/jmeno}"/>
+                    <Label text="Auto" required="true"/>
+                    <Input value="{createModel>/auto}"/>
+                    <Label text="Model" required="true"/>
+                    <Input value="{createModel>/model}"/>
+                    <Label text="Barva" required="true"/>
+                    <!--TODO: výběr vlastních barev -->
+                    <ColorPalette colorSelect="handleColorSelect"/>
+                    <Label text="Hodnocení"/>
+                    <RatingIndicator value="{createModel>/hodnoceni}"/>
+                    <Label text="Nové auto"/>
+                    <CheckBox selected="{createModel>/nove}"/>
+                </form:content>
+            </form:SimpleForm>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ColumnListItem type="Navigation" press="handleRowPress">
+        <cells>
+            <Label text="{mainModel>jmeno}" design="Bold"/>
+            <Text text="{mainModel>auto}" class="italicText"/>
+            <Text text="{mainModel>model}"/>
+            <core:Icon src="sap-icon://color-fill" color="{mainModel>barva}"/>
+            <RatingIndicator class="{= ${device>/support/touch} ? 'sapUiSizeCozy' : 'sapUiSizeCompact'}>" editable="false" value="{mainModel>hodnoceni}"/>
+            <CheckBox editable="false" selected="{mainModel>nove}"/>
+            <!-- <Button visible="{= !${mainModel>nove} }" text="Smazat" icon="sap-icon://delete" type="{= ${mainModel>auto} === 'BMW' ? 'Emphasized' : 'Reject' }" press="handleDeleteEntry"/> -->
+            <!-- <Button visible="{ path: 'mainModel>nove', formatter: '.formatter.showDeleteButton' }" text="Smazat" icon="sap-icon://delete" type="{= ${mainModel>auto} === 'BMW' ? 'Emphasized' : 'Reject' }" press="handleDeleteEntry"/> -->
+            <!-- <Button visible="{ parts: [{ path: 'mainModel>hodnoceni' },{ path: 'mainModel>auto'}], formatter: '.formatter.showDeleteButton1' }" text="Smazat" icon="sap-icon://delete" type="{ path: 'mainModel>auto', formatter: '.formatter.setButtonType'}" press="handleDeleteEntry"/> -->
+            <Button text="Smazat" icon="sap-icon://delete" type="{ path: 'mainModel>auto', formatter: '.formatter.setButtonType'}" press="handleDeleteEntry"/>
+        </cells>
+    </ColumnListItem>
+</core:FragmentDefinition>

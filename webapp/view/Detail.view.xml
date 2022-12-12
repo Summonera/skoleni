@@ -1,0 +1,46 @@
+<mvc:View xmlns:form="sap.ui.layout.form" controllerName="cd.skoleni.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core" displayBlock="true" height="100%" busyIndicatorDelay="0">
+    <Page title="Detail záznamu" showNavButton="true" navButtonPress="handleNavButtonPress">
+        <content>
+            <form:SimpleForm labelSpanM="5" emptySpanL="5" layout="ResponsiveGridLayout" editable="false" visible="{= !${detailModel>/edit}}">
+                <Label text="Jméno"/>
+                <Text text="{mainModel>jmeno}"/>
+                <Label text="Auto"/>
+                <Text text="{mainModel>auto}"/>
+                <Label text="Model"/>
+                <Text text="{mainModel>model}"/>
+                <Label text="Barva"/>
+                <core:Icon src="sap-icon://color-fill" color="{mainModel>barva}" width="1px"/>
+                <Label text="Hodnocení"/>
+                <RatingIndicator value="{mainModel>hodnoceni}" displayOnly="true"/>
+                <Label text="Nové auto"/>
+                <CheckBox displayOnly="true" selected="{mainModel>nove}"/>
+            </form:SimpleForm>
+
+            <form:SimpleForm labelSpanM="5" emptySpanL="5" layout="ResponsiveGridLayout" editable="true" visible="{detailModel>/edit}">
+                <Label text="Jméno" required="true"/>
+                <Input value="{mainModel>jmeno}"/>
+                <Label text="Auto" required="true"/>
+                <Input value="{mainModel>auto}"/>
+                <Label text="Model" required="true"/>
+                <Input value="{mainModel>model}"/>
+                <Label text="Barva" required="true"/>
+                <ColorPalette colorSelect="handleColorSelect"/>
+                <Label text="Hodnocení"/>
+                <RatingIndicator value="{mainModel>hodnoceni}"/>
+                <Label text="Nové auto"/>
+                <CheckBox selected="{mainModel>nove}"/>
+            </form:SimpleForm>
+        </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Button visible="{detailModel>/edit}" text="Uložit" icon="sap-icon://save" type="Emphasized" press="handleChangeState"/>
+                <Button visible="{= !${detailModel>/edit}}" text="Editovat" icon="sap-icon://edit" type="Emphasized" press="handleChangeState"/>
+
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

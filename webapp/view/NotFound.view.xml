@@ -1,0 +1,8 @@
+<mvc:View controllerName="cd.skoleni.controller.NotFound"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:c="sap.ui.core" displayBlock="true" height="100%" busyIndicatorDelay="0">
+    <MessagePage icon="sap-icon://alert" description="" text="Špatná URL adresa" showHeader="false">
+    
+    </MessagePage>
+</mvc:View>

@@ -1,0 +1,68 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="cd.skoleni.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Table id="idTable" items="{mainModel>/}" mode="MultiSelect">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Záznamy ({ path: 'mainModel>/', formatter: '.formatter.showItemsCount' })" />
+                        <ToolbarSpacer />
+                        <Button visible="{device>/system/desktop}" text="Smazat vybrané záznamy" type="Emphasized" icon="sap-icon://delete" press="handleDeleteSelectedEntries" />
+                        <Button visible="{device>/system/desktop}" text="Přidat záznam" type="Emphasized" icon="sap-icon://add" press="handleAddNewEntry" />
+                        <MenuButton type="Emphasized" text="Akce" visible="{device>/system/phone}">
+                            <menu>
+                                <Menu>
+                                    <items>
+                                        <MenuItem text="Smazat vybrané záznamy" icon="sap-icon://delete" press="handleDeleteSelectedEntries"/>
+                                        <MenuItem text="Přidat záznam" icon="sap-icon://add" press="handleAddNewEntry"/>
+                                    </items>
+                                </Menu>
+                            </menu>
+                        </MenuButton>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <header>
+                            <Text text="{i18n>name}"/>
+                        </header>
+                    </Column>
+                    <Column popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                        <header>
+                            <Text text="Auto"/>
+                        </header>
+                    </Column>
+                    <Column popinDisplay="Inline"  demandPopin="true" minScreenWidth="Tablet">
+                        <header>
+                            <Text text="Model"/>
+                        </header>
+                    </Column>
+                    <Column  popinDisplay="Inline" demandPopin="true" minScreenWidth="Tablet">
+                        <header>
+                            <Text text="Barva"/>
+                        </header>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Large">
+                        <header>
+                            <Text text="Hodnocení"/>
+                        </header>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Large">
+                        <header>
+                            <Text text="Nové auto"/>
+                        </header>
+                    </Column>
+                    <Column>
+                        <header>
+                            <Text text="Akce"/>
+                        </header>
+                    </Column>
+                </columns>
+                <items>
+                    <core:Fragment fragmentName="cd.skoleni.view.fragment.ColumnListItem" type="XML"/>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>
