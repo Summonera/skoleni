@@ -31,7 +31,19 @@ server:
         ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
         backend:
           - path: /sap
-            url: http://localhost
+            url: http://smbttaci.sap.skoda.vwg:44301
+            client: '010'
+            destination: TTA
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /sap/opu/odata/sap/ZJF_CAR_REPAIT_2_SRV
+            metadataPath: ./webapp/localService/metadata.xml
+            mockdataPath: ./webapp/localService/data
+            generateMockData: true
+        annotations: []
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:

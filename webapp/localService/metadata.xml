@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZJF_CAR_REPAIT_2_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="EntCar" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="HeadId"/>
+                </Key>
+                <Property Name="HeadId" Type="Edm.String" Nullable="false" MaxLength="32"/>
+                <Property Name="State" Type="Edm.String" MaxLength="10"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="40" sap:field-control="NameFc"/>
+                <Property Name="Mark" Type="Edm.String" MaxLength="40" sap:field-control="MarkFc"/>
+                <Property Name="Model" Type="Edm.String" MaxLength="40" sap:field-control="ModelFc"/>
+                <Property Name="Color" Type="Edm.String" MaxLength="7" sap:field-control="ColorFc"/>
+                <Property Name="Rating" Type="Edm.Byte" sap:field-control="RatingFc"/>
+                <Property Name="IsNew" Type="Edm.Boolean" sap:field-control="IsNewFc"/>
+                <Property Name="CrtUname" Type="Edm.String" MaxLength="12"/>
+                <Property Name="CrtDate" Type="Edm.DateTime" Precision="7"/>
+                <Property Name="CrtTime" Type="Edm.Time" Precision="0"/>
+                <Property Name="NameFc" Type="Edm.Byte" sap:visible="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MarkFc" Type="Edm.Byte" sap:visible="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ModelFc" Type="Edm.Byte" sap:visible="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ColorFc" Type="Edm.Byte" sap:visible="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RatingFc" Type="Edm.Byte" sap:visible="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsNewFc" Type="Edm.Byte" sap:visible="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Car2File" Relationship="ZJF_CAR_REPAIT_2_SRV.Car2File" FromRole="FromRole_Car2File" ToRole="ToRole_Car2File"/>
+                <NavigationProperty Name="Car2Repair" Relationship="ZJF_CAR_REPAIT_2_SRV.Car2Repair" FromRole="FromRole_Car2Repair" ToRole="ToRole_Car2Repair"/>
+            </EntityType>
+            <EntityType Name="Repair" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="HeadId"/>
+                    <PropertyRef Name="ItemId"/>
+                </Key>
+                <Property Name="HeadId" Type="Edm.String" Nullable="false" MaxLength="32"/>
+                <Property Name="ItemId" Type="Edm.String" Nullable="false" MaxLength="32"/>
+                <Property Name="CarPart" Type="Edm.String" MaxLength="10" sap:text="CarPartTx"/>
+                <Property Name="Amount" Type="Edm.Byte"/>
+                <Property Name="UnitPrice" Type="Edm.Decimal" Precision="15" Scale="3"/>
+                <Property Name="CrtUname" Type="Edm.String" MaxLength="12"/>
+                <Property Name="CrtDate" Type="Edm.DateTime" Precision="7"/>
+                <Property Name="CrtTime" Type="Edm.Time" Precision="0"/>
+                <Property Name="TotalPrice" Type="Edm.Decimal" Precision="15" Scale="3"/>
+                <Property Name="CarPartTx" Type="Edm.String" MaxLength="255"/>
+            </EntityType>
+            <EntityType Name="CarFile" m:HasStream="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="HeadId"/>
+                    <PropertyRef Name="ItemId"/>
+                </Key>
+                <Property Name="HeadId" Type="Edm.String" Nullable="false" MaxLength="32"/>
+                <Property Name="ItemId" Type="Edm.String" Nullable="false" MaxLength="32"/>
+                <Property Name="FileName" Type="Edm.String" Nullable="false" MaxLength="255"/>
+                <Property Name="FileSize" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="FileMimetype" Type="Edm.String" Nullable="false" MaxLength="128"/>
+            </EntityType>
+            <EntityType Name="SflightCds" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Airline"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Flight Number"/>
+                <Property Name="Countryfr" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Country"/>
+                <Property Name="Cityfrom" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Depart.city"/>
+                <Property Name="Airpfrom" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Dep. airport"/>
+                <Property Name="Countryto" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Country"/>
+                <Property Name="Cityto" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Arrival city"/>
+                <Property Name="Airpto" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Dest. airport"/>
+                <Property Name="Fltime" Type="Edm.Int32" Nullable="false" sap:label="Flight time"/>
+                <Property Name="Deptime" Type="Edm.Time" Nullable="false" Precision="0" sap:label="Departure"/>
+                <Property Name="Arrtime" Type="Edm.Time" Nullable="false" Precision="0" sap:label="Arrival Time"/>
+                <Property Name="Distance" Type="Edm.Decimal" Nullable="false" Precision="9" Scale="4" sap:unit="Distid" sap:label="Distance"/>
+                <Property Name="Distid" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Distance in" sap:semantics="unit-of-measure"/>
+                <Property Name="Fltype" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Charter"/>
+                <Property Name="Period" Type="Edm.Byte" Nullable="false" sap:label="n day(s) later"/>
+            </EntityType>
+            <EntityType Name="SfliCds" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                    <PropertyRef Name="Fldate"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Airline"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Flight Number"/>
+                <Property Name="Fldate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:label="Date"/>
+                <Property Name="Price" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unit="Currency" sap:label="Airfare"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Airline Currency" sap:semantics="currency-code"/>
+                <Property Name="Planetype" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Plane Type"/>
+                <Property Name="Seatsmax" Type="Edm.Int32" Nullable="false" sap:label="Max. capacity econ."/>
+                <Property Name="Seatsocc" Type="Edm.Int32" Nullable="false" sap:label="Occupied econ."/>
+                <Property Name="Paymentsum" Type="Edm.Decimal" Nullable="false" Precision="18" Scale="3" sap:unit="Currency" sap:label="Total"/>
+                <Property Name="Seatsmaxb" Type="Edm.Int32" Nullable="false" sap:label="Max. capacity bus."/>
+                <Property Name="Seatsoccb" Type="Edm.Int32" Nullable="false" sap:label="Occupied bus."/>
+                <Property Name="Seatsmaxf" Type="Edm.Int32" Nullable="false" sap:label="Max. capacity 1st"/>
+                <Property Name="Seatsoccf" Type="Edm.Int32" Nullable="false" sap:label="Occupied 1st"/>
+            </EntityType>
+            <Association Name="Car2File" sap:content-version="1">
+                <End Type="ZJF_CAR_REPAIT_2_SRV.EntCar" Multiplicity="1" Role="FromRole_Car2File"/>
+                <End Type="ZJF_CAR_REPAIT_2_SRV.CarFile" Multiplicity="*" Role="ToRole_Car2File"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Car2File">
+                        <PropertyRef Name="HeadId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Car2File">
+                        <PropertyRef Name="HeadId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Car2Repair" sap:content-version="1">
+                <End Type="ZJF_CAR_REPAIT_2_SRV.EntCar" Multiplicity="1" Role="FromRole_Car2Repair"/>
+                <End Type="ZJF_CAR_REPAIT_2_SRV.Repair" Multiplicity="*" Role="ToRole_Car2Repair"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Car2Repair">
+                        <PropertyRef Name="HeadId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Car2Repair">
+                        <PropertyRef Name="HeadId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZJF_CAR_REPAIT_2_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="EntCarSet" EntityType="ZJF_CAR_REPAIT_2_SRV.EntCar" sap:content-version="1"/>
+                <EntitySet Name="RepairSet" EntityType="ZJF_CAR_REPAIT_2_SRV.Repair" sap:content-version="1"/>
+                <EntitySet Name="CarFileSet" EntityType="ZJF_CAR_REPAIT_2_SRV.CarFile" sap:content-version="1"/>
+                <EntitySet Name="SflightCdsSet" EntityType="ZJF_CAR_REPAIT_2_SRV.SflightCds" sap:content-version="1"/>
+                <EntitySet Name="SfliCdsSet" EntityType="ZJF_CAR_REPAIT_2_SRV.SfliCds" sap:content-version="1"/>
+                <AssociationSet Name="Car2RepairSet" Association="ZJF_CAR_REPAIT_2_SRV.Car2Repair" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="EntCarSet" Role="FromRole_Car2Repair"/>
+                    <End EntitySet="RepairSet" Role="ToRole_Car2Repair"/>
+                </AssociationSet>
+                <AssociationSet Name="Car2FileSet" Association="ZJF_CAR_REPAIT_2_SRV.Car2File" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="EntCarSet" Role="FromRole_Car2File"/>
+                    <End EntitySet="CarFileSet" Role="ToRole_Car2File"/>
+                </AssociationSet>
+                <FunctionImport Name="SetState" ReturnType="ZJF_CAR_REPAIT_2_SRV.EntCar" EntitySet="EntCarSet" m:HttpMethod="POST" sap:action-for="ZJF_CAR_REPAIT_2_SRV.EntCar">
+                    <Parameter Name="HeadKey" Type="Edm.String" Mode="In" MaxLength="32"/>
+                    <Parameter Name="State" Type="Edm.String" Mode="In" MaxLength="10"/>
+                </FunctionImport>
+                <FunctionImport Name="GeneratePdf" ReturnType="ZJF_CAR_REPAIT_2_SRV.CarFile" EntitySet="CarFileSet" m:HttpMethod="POST" sap:action-for="ZJF_CAR_REPAIT_2_SRV.EntCar">
+                    <Parameter Name="HeadKey" Type="Edm.String" Mode="In" MaxLength="32"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations Target="ZJF_CAR_REPAIT_2_SRV.EntCar" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.UI.v1.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String="Repair"/>
+                        <PropertyValue Property="TypeNamePlural" String="Repairs"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="com.sap.vocabularies.UI.v1.LineItem">
+                    <Collection>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Value" Path="Name"/>
+                        </Record>
+                        <Record Type="com.sap.vocabularies.UI.v1.DataField">
+                            <PropertyValue Property="Value" Path="Mark"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZJF_CAR_REPAIT_2_SRV.EntCar" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="com.sap.vocabularies.UI.v1.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Name</PropertyPath>
+                        <PropertyPath>Mark</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://SMBTTACI.SAP.SKODA.VWG:44301/sap/opu/odata/sap/ZJF_CAR_REPAIT_2_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://SMBTTACI.SAP.SKODA.VWG:44301/sap/opu/odata/sap/ZJF_CAR_REPAIT_2_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
