@@ -1,9 +1,7 @@
-<mvc:View xmlns:core="sap.ui.core" controllerName="cd.skoleni.controller.Main"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
+<mvc:View xmlns:smartfilterbar="sap.ui.comp.smartfilterbar" xmlns:smarttable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core" controllerName="cd.skoleni.controller.Main" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
-            <Table updateFinished="handleTableUpdateFinished" id="idTable" items="{/EntCarSet}" mode="MultiSelect" >
+            <!-- <Table updateFinished="handleTableUpdateFinished" id="idTable" items="{/EntCarSet}" mode="MultiSelect" >
                 <headerToolbar>
                     <Toolbar>
                         <Title id="idTitle" text="Záznamy ({tableModel>/pocet})" />
@@ -62,7 +60,70 @@
                 <items>
                     <core:Fragment fragmentName="cd.skoleni.view.fragment.ColumnListItem" type="XML"/>
                 </items>
-            </Table>
+            </Table> -->
+            <smartfilterbar:SmartFilterBar id="idSmartFilter"  liveMode="true" entitySet="EntCarSet">
+                <smartfilterbar:controlConfiguration>
+                    <smartfilterbar:ControlConfiguration key="Rating" visible="true" controlType="input" filterType="single"></smartfilterbar:ControlConfiguration>
+                </smartfilterbar:controlConfiguration>
+            </smartfilterbar:SmartFilterBar>
+            <smarttable:SmartTable smartFilterId="idSmartFilter" header="Záznamy" entitySet="EntCarSet" enableAutoBinding="true" >
+                <smarttable:customToolbar>
+                    <Toolbar>
+                        <Title id="idTitle" text="Záznamy ({tableModel>/pocet})" />
+                        <ToolbarSpacer />
+                        <Button visible="{device>/system/desktop}" text="Smazat vybrané záznamy" type="Emphasized" icon="sap-icon://delete" press="handleDeleteSelectedEntriesBE" />
+                        <Button visible="{device>/system/desktop}" text="Přidat záznam" type="Emphasized" icon="sap-icon://add" press="handleAddNewEntry" />
+                        <MenuButton type="Emphasized" text="Akce" visible="{device>/system/phone}">
+                            <menu>
+                                <Menu>
+                                    <items>
+                                        <MenuItem text="Smazat vybrané záznamy" icon="sap-icon://delete" press="handleDeleteSelectedEntriesBE"/>
+                                        <MenuItem text="Přidat záznam" icon="sap-icon://add" press="handleAddNewEntry"/>
+                                    </items>
+                                </Menu>
+                            </menu>
+                        </MenuButton>
+                    </Toolbar>
+                </smarttable:customToolbar>
+                <Table>
+                    <columns>
+                        <Column>
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "Name", "columnIndex": "0", 
+                                "leadingProperty" : "Name", "sortPoperty": "Name", "filterProperty": "Name" }' />
+                            </customData>
+                            <header>
+                                <Text text="{/#EntCar/Name/@sap:label}" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "Rating", "columnIndex": "1", 
+                                "leadingProperty" : "Rating", "sortPoperty": "Rating", "filterProperty": "Rating" }' />
+                            </customData>
+                            <header>
+                                <Text text="{/#EntCar/Rating/@sap:label}" />
+                            </header>
+                        </Column>
+                        <Column>
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "Color", "columnIndex": "2", 
+                                "leadingProperty" : "Color", "sortPoperty": "Color", "filterProperty": "Color" }' />
+                            </customData>
+                            <header>
+                                <Text text="{/#EntCar/Color/@sap:label}" />
+                            </header>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem type="Navigation" press="handleRowPress">
+                            <Label design="Bold" text="{Name}"/>
+                            <RatingIndicator value="{Rating}"/>
+                            <core:Icon src="sap-icon://color-fill" color="{Color}"/>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </smarttable:SmartTable>
         </content>
     </Page>
 </mvc:View>

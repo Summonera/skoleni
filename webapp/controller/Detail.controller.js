@@ -39,21 +39,29 @@ sap.ui.define([
 			var bEdit = oModel.getProperty("/edit");
 
 			if(bEdit){
-				this.handleUpdateEntry(oModel);
+				this.handleUpdateEntry2(oModel);
 			}else{
 				oModel.setProperty("/edit", !bEdit);
+				this.handleSetState();
 			}
 			
-			/*this.sHeadId = this.getView().getModel().getProperty(this.sPath + "/HeadId");
+			
+		},
+
+		handleSetState: function(){
+			this.sHeadId = this.getView().getModel().getProperty(this.sPath + "/HeadId");
 			this.sState = this.getView().getModel().getProperty(this.sPath + "/State");
 			var sPath = "/SetState"
 			this.getView().getModel().callFunction(sPath, {
 				method:"POST",
 				urlParameters: {
 					HeadKey: this.sHeadId,
-					State: this.sState
-				}
-			})*/
+					State: "x"
+				},
+				success: function(){
+					this.getView().getModel().read(this.sPath);
+				}.bind(this)
+			})
 		},
 
 		handleUpdateEntry: function(oModel){
@@ -71,12 +79,13 @@ sap.ui.define([
 				this.getView().getModel().submitChanges({
 					success: function(){
 						oModel.setProperty("/edit", false);
-					}
+						this.handleSetState();
+					}.bind(this)
 				});
+			}else{
+				this.handleSetState();
 			}
 		},
-
-
 
 		handleNavButtonPress: function(){
 			this.getOwnerComponent().getRouter().navTo("RouteMain");

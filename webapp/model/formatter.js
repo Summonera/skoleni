@@ -10,7 +10,7 @@ sap.ui.define([],
                 }else{
                     return false;
                 }
-            },
+            }, 
 
             showDeleteButton1: function(iHodnoceni, sAuto){
                 if(iHodnoceni > 3 && (sAuto === "Škoda" || sAuto === "Mercedes") ){

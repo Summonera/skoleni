@@ -1,10 +1,10 @@
-<mvc:View xmlns:form="sap.ui.layout.form" controllerName="cd.skoleni.controller.Detail"
+<mvc:View xmlns:smartfield="sap.ui.comp.smartfield" xmlns:form="sap.ui.layout.form" controllerName="cd.skoleni.controller.Detail"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:core="sap.ui.core" displayBlock="true" height="100%" busyIndicatorDelay="0">
     <Page title="Detail záznamu" showNavButton="true" navButtonPress="handleNavButtonPress">
         <content>
-            <form:SimpleForm labelSpanM="5" emptySpanL="5" layout="ResponsiveGridLayout" editable="false" visible="{= !${detailModel>/edit}}">
+            <!-- <form:SimpleForm labelSpanM="5" emptySpanL="5" layout="ResponsiveGridLayout" editable="false" visible="{= !${detailModel>/edit}}">
                 <Label text="Jméno"/>
                 <Text text="{Name}"/>
                 <Label text="Auto"/>
@@ -32,13 +32,30 @@
                 <RatingIndicator value="{Rating}"/>
                 <Label text="Nové auto"/>
                 <CheckBox selected="{IsNew}"/>
+            </form:SimpleForm> -->
+
+            <form:SimpleForm editable="{= ${State} !== 'READ' }">
+                <Label text="Jméno"/>
+                <smartfield:SmartField value="{Name}"/>
+                <Label text="Auto"/>
+                <smartfield:SmartField value="{Mark}"/>
+                <Label text="Model"/>
+                <smartfield:SmartField value="{Model}"/>
+                <Label text="Barva"/>
+                <ColorPalette visible="{= ${ColorFc} === 7}" colorSelect="handleColorSelect" id="idColorPalette"/>
+                <Label text="Barva"/>
+                <core:Icon visible="{= ${ColorFc} === 1}" src="sap-icon://color-fill" color="{Color}" width="1px"/>
+                <Label text="Hodnocení"/>
+                <RatingIndicator displayOnly="{= ${RatingFc} === 1}" value="{Rating}"/>
+                <Label text="Nové auto"/>
+                <smartfield:SmartField value="{IsNew}"/>
             </form:SimpleForm>
         </content>
         <footer>
             <Toolbar>
                 <ToolbarSpacer/>
-                <Button visible="{detailModel>/edit}" text="Uložit" icon="sap-icon://save" type="Emphasized" press="handleChangeState"/>
-                <Button visible="{= !${detailModel>/edit}}" text="Editovat" icon="sap-icon://edit" type="Emphasized" press="handleChangeState"/>
+                <Button visible="{= ${State} !== 'READ' }" text="Uložit" icon="sap-icon://save" type="Emphasized" press="handleChangeState"/>
+                <Button visible="{= ${State} === 'READ' }" text="Editovat" icon="sap-icon://edit" type="Emphasized" press="handleChangeState"/>
             </Toolbar>
         </footer>
     </Page>
